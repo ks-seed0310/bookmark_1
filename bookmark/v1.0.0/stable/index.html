@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang=ja>
+<head>
+    <meta charset=utf-8>
+    <style>
+        #main{
+            font-size:24px
+        }
+    </style>
+</head>
+<body>
+    <input id=save_nameInput placeholder="ここに保存名" />
+    <input id=save_urlInput placeholder="ここにURL"/>
+    <input id=save_keyInput placeholder="保存キーを入力(数字)" value=1 type=number>
+    <button id="save" onclick="saveSub()">追加保存</button>
+    <button id="load" onclick="loadSub()">読み込み</button>
+    <br>
+    <br>
+    <br>
+    <span id="main">
+        
+    </span>
+</body>
+<script>
+function urlClear(){
+    document.all["main"].innerHTML=""
+}
+function load(key){
+    try{
+        const data=JSON.parse(localStorage.getItem("bookmark_save_"+key))??[]
+        for(let i=0;i<data.length;i++){
+            document.all["main"].innerHTML+=`<a href="${data[i][1]}">${data[i][0]}</a><br>`
+        }
+        if (data.length==0){
+            document.all['main'].innerHTML=`<h1>見つかりませんでした</h1>`
+            return 1
+        }
+        return 0
+    }catch{
+        return 1
+    }
+}
+function loadSub(){
+    urlClear()
+    const key=prompt("保存キーを入力してください")
+    load(key)
+}
+function save(name,url,savekey){
+    try{
+        if(savekey/1!=savekey){
+            return 1
+        }
+        let data=JSON.parse(localStorage.getItem("bookmark_save_"+savekey))??[]
+        let isData=data.find(item=>item[0]==name)
+        if (isData){
+            if (confirm(`置き換えますか?\n現在:${isData[1]}\n置換:${url}`)){
+                isData[1]=url
+            }
+        }else{
+            data.push([name,url])
+        }
+        localStorage.setItem("bookmark_save_"+savekey,JSON.stringify(data))
+        return 0
+    }catch{
+        return 1
+    }
+}        
+function saveSub(){
+    const all=document.all
+    if (!save(all["save_nameInput"].value,all["save_urlInput"].value,all["save_keyInput"].value)){
+        alert(`保存に成功しました。key:${all["save_keyInput"].value}`)
+    }else{
+        alert("保存に失敗しました")
+    }
+}
+</script>
+</html>
