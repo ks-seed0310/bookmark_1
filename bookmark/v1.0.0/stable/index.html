@@ -32,7 +32,7 @@ function load(key){
     try{
         const data=JSON.parse(localStorage.getItem("bookmark_save_"+key))??[]
         for(let i=0;i<data.length;i++){
-            document.all["main"].innerHTML+=`<a href="${data[i][1]}">${data[i][0]}</a><br>`
+            document.all["main"].innerHTML+=`<a href="${data[i][1]}" target="_blank" rel="noopener noreferrer">${data[i][0]}</a><br>`
         }
         if (data.length==0){
             document.all['main'].innerHTML=`<h1>見つかりませんでした</h1>`
