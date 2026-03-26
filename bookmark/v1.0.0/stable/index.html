@@ -71,6 +71,7 @@ function save(name,url,savekey){
 function saveSub(){
     const all=document.all
     if (!save(all["save_nameInput"].value,all["save_urlInput"].value,all["save_keyInput"].value)){
+        load(all["save_keyInput"].value)
         alert(`保存に成功しました。key:${all["save_keyInput"].value}`)
     }else{
         alert("保存に失敗しました")
