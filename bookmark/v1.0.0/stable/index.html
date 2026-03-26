@@ -6,12 +6,15 @@
         #main{
             font-size:24px
         }
+        .inp{
+            font-size:24px
+        }
     </style>
 </head>
 <body>
-    <input id=save_nameInput placeholder="ここに保存名" />
-    <input id=save_urlInput placeholder="ここにURL"/>
-    <input id=save_keyInput placeholder="保存キーを入力(数字)" value=1 type=number>
+    <input class=inp id=save_nameInput placeholder="ここに保存名" />
+    <input class=inp id=save_urlInput placeholder="ここにURL"/>
+    <input class=inp id=save_keyInput placeholder="保存キーを入力(数字)" value=1 type=number>
     <button id="save" onclick="saveSub()">追加保存</button>
     <button id="load" onclick="loadSub()">読み込み</button>
     <br>
